@@ -11,7 +11,7 @@ export interface NodeDataModel {
     height : number;
     width : number;
     borderWidth ?: number;
-    style ?: {}
+    // style ?: {}
 }
 
 export interface ConnectorDataModel {
@@ -19,8 +19,10 @@ export interface ConnectorDataModel {
     name ?: string;
     sourceId : string;
     destinationId : string;
-    style ?: {};
-    targetDecorator ?: {};
-    sourcePoint ?: {};
-    targetPoint ?: {}
+    inputPort : string;
+    outputPort : string
+    // style ?: {};
+    // targetDecorator ?: {};
+    // sourcePoint ?: {};
+    // targetPoint ?: {}
 }

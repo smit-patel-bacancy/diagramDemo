@@ -5,21 +5,32 @@
     </div>
     <br>
 
-    <ejs-diagram id="diagram-container" #diagram id="diagram" width="1200px" height="500px" (propertyChange)="valuechange($event)">
+    <ejs-diagram id="diagram-container" #diagram id="diagram" width="1200px" height="500px" (propertyChange)="valueChange($event)">
     </ejs-diagram>
 
-    <h4>Object values</h4>
+    <button (click)="showValues()" class="btn btn-primary">Show Values</button>
+
     <div *ngIf="isChanged">
+        <h4>Object values</h4>
         <h5>Connectors</h5>
         <ul *ngFor="let x of DiagramData.connectors">
             <li>
                 <h6>id: {{x.id}}</h6>
             </li>
+            <!-- <li>
+                <h6>name: {{x.name}}</h6>
+            </li> -->
             <li>
                 <h6>sourceId: {{x.sourceId}}</h6>
             </li>
             <li>
+                <h6>outputPort: {{x.outputPort}}</h6>
+            </li>
+            <li>
                 <h6>destinationId: {{x.destinationId}}</h6>
+            </li>
+            <li>
+                <h6>inputPort: {{x.inputPort}}</h6>
             </li>
             <br>
         </ul>
@@ -28,6 +39,9 @@
             <li>
                 <h6>id: {{x.id}}</h6>
             </li>
+            <!-- <li>
+                <h6>name: {{x.name}}</h6>      
+            </li> -->
             <li>
                 <h6>offsetX: {{x.offsetX}}</h6>
             </li>

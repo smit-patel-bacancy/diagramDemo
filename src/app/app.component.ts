@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { DiagramComponent, NodeModel, ConnectorModel, LinearGradientModel } from '@syncfusion/ej2-angular-diagrams';
+import { DiagramComponent, NodeModel, ConnectorModel, LinearGradientModel, PointPortModel } from '@syncfusion/ej2-angular-diagrams';
 import { ConnectorDataModel, DiagramDataModel, NodeDataModel } from './models/diagramData.model';
 
 @Component({
@@ -7,6 +7,7 @@ import { ConnectorDataModel, DiagramDataModel, NodeDataModel } from './models/di
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
+
 export class AppComponent{
   public isChanged:boolean=false;
   public DiagramData: DiagramDataModel;
@@ -69,21 +70,25 @@ export class AppComponent{
   };
 
   public addNode() {
+    this.node.ports = getPorts(this.node);
     this.diagram.add(this.node);
-    this.isChanged=true;
   }
 
   public addConnector() {
     this.diagram.add(this.connectors);
-    this.isChanged=true;
   }
 
-  valuechange($event:any) {
+  public showValues(){
+    this.isChanged=true;
+    console.log(this.DiagramData);
+  }
+  public valueChange($event:any) {
     var nodeList: NodeDataModel[] = [];
     var connectorList: ConnectorDataModel[] = [];
     this.diagram.nodes.forEach((element) => {
       const nodeData: NodeDataModel = {
         id: element.id,
+        // name: element.annotations[0].content,
         height: element.height,
         width: element.width,
         offsetX: element.offsetX,
@@ -95,8 +100,11 @@ export class AppComponent{
     this.diagram.connectors.forEach((element) => {
       const connectorData: ConnectorDataModel = {
         id: element.id,
+        // name: element.annotations[0].content,
         sourceId: element.sourceID,
+        inputPort: element.sourcePortID,
         destinationId: element.targetID,
+        outputPort: element.targetPortID
       };
       connectorList.push(connectorData);
     });
@@ -105,6 +113,16 @@ export class AppComponent{
       nodes: nodeList,
       connectors: connectorList,
     };
-    console.log(this.DiagramData);
+    // console.log(this.DiagramData);
   }
+}
+
+function getPorts(obj: NodeModel): PointPortModel[] {
+  let ports: PointPortModel[] = [
+    { id: 'port1', shape: 'Circle', offset: { x: 0, y: 0.5 } },
+    { id: 'port2', shape: 'Circle', offset: { x: 0.5, y: 1 } },
+    { id: 'port3', shape: 'Circle', offset: { x: 1, y: 0.5 } },
+    { id: 'port4', shape: 'Circle', offset: { x: 0.5, y: 0 } }
+  ];
+  return ports;
 }
