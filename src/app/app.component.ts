@@ -82,13 +82,15 @@ export class AppComponent{
     this.isChanged=true;
     console.log(this.DiagramData);
   }
+  
   public valueChange($event:any) {
-    var nodeList: NodeDataModel[] = [];
+    setTimeout(() => {
+      var nodeList: NodeDataModel[] = [];
     var connectorList: ConnectorDataModel[] = [];
     this.diagram.nodes.forEach((element) => {
       const nodeData: NodeDataModel = {
         id: element.id,
-        // name: element.annotations[0].content,
+        name: element.annotations[0] ? element.annotations[0].content : '',
         height: element.height,
         width: element.width,
         offsetX: element.offsetX,
@@ -100,7 +102,7 @@ export class AppComponent{
     this.diagram.connectors.forEach((element) => {
       const connectorData: ConnectorDataModel = {
         id: element.id,
-        // name: element.annotations[0].content,
+        name: element.annotations[0] ? element.annotations[0].content : '',
         sourceId: element.sourceID,
         inputPort: element.sourcePortID,
         destinationId: element.targetID,
@@ -114,6 +116,7 @@ export class AppComponent{
       connectors: connectorList,
     };
     // console.log(this.DiagramData);
+    }, 0.1);
   }
 }
 
